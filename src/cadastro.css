@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+ 
+  
+  .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .cadastro-container {
+    background-color: red;
+    width: 900px;
+    height: 550px;
+    display: flex;
+    box-shadow: 1px 1px 18px rgb(143, 142, 142);
+  }
+  
+  .left-container {
+    background-color: rgb(36, 198, 219);
+    width: 50%;
+    height: inherit;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .imagem-logo {
+    width: 500px;
+  }
+  
+  .right-container {
+    background-color: rgb(252, 252, 252);
+    width: 50%;
+    height: inherit;
+    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 400px;
+  }
+  
+  .form-cadastro {
+    display: inline-grid;
+    width: 900px;
+    height: 0px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 18px rgb(143, 142, 142);
+    background-color: white;
+    margin-top: -500px;
+  }
+  
+  input {
+    width: 300px;
+    height: 40px;
+    padding: 3px;
+    font-size: 15px;
+    margin-top: 5px;
+    background-color: rgb(218, 245, 245);
+    border: 0;
+  }
+  
+  .button-casdastrar {
+    border: 0;
+    border-radius: 5px;
+    background: rgb(12, 175, 204);
+    width: 300px;
+    height: 50px;
+    margin-top: -0px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  button:hover {
+    background: rgb(8, 141, 165);
+  
+  }
+  
+  label {
+    display: block;
+    float: left;
+    margin-top: 20px;
+    font-size: 17px;
+    font-weight: 300;
+  }
+  
+  .title-cadastro {
+    display: inline-block;
+    text-align: center;
+    margin-top: -70px;
+    font-size: 25px;
+    color: rgb(12, 175, 204);
+  }
+  
+  p {
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  .message {
+    font-size: 13px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: block;
+  }
+  
+  .success {
+    color: rgb(0, 185, 0);
+  }
+  
+  .error {
+    color: red;
+  }
+  
+  .icone-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 150px;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 250px;
+    margin-left: 80px;
+    background-color: white;
+    color: rgb(36, 198, 219);
+    margin-top: -150px;
+    margin-bottom: 10px;
+  }
+  
+  #resultado 
+  {
+   display: block;
+   height: 30px;
+   margin-top: 5px;
+   margin-bottom: -5px;
+   color: red;
+   text-align: center;
+  }
+
+  .link-login 
+  {
+    color: blue;
+    width: 100%;
+    margin-top: 10px;
+  }
