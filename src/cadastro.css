@@ -83,10 +83,7 @@
     color: white;
   }
   
-  button:hover {
-    background: rgb(8, 141, 165);
   
-  }
   
   label {
     display: block;
@@ -154,4 +151,19 @@
     color: blue;
     width: 100%;
     margin-top: 10px;
+  }
+
+  @media screen and (max-width: 780px) { 
+    .left-container  {
+      display: none;
+    }
+    .right-container {
+      background-color: rgb(252, 252, 252);
+      width: 100%;
+      display: block;
+      height: inherit;
+    }
+    .login-container {
+      width: 580px;
+    }
   }

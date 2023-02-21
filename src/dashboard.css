@@ -6,6 +6,7 @@
 body {
     background-color: white;
 }
+
 .container-dashboard {
     display: block;
     background-color: aliceblue;
@@ -62,9 +63,23 @@ body {
     margin-top: 8px;
 }
 
+
 .montantes {
     text-align: center;
 }
+
+#montante-entrada {
+    color: blue;
+}
+
+#montante-saida {
+    color: red;
+}
+
+#montante-total {
+    color: green;
+}
+
 
 .form-dasboard {
     display: inline-block;
@@ -91,10 +106,22 @@ input [type=text],
     display: inline-block;
 }
 
+.input-table {
+    display: none;
+}
 .button-adcionar {
     display: inline-block;
     width: 150px;
     margin-left: 15px;
+    background-color: rgb(12, 175, 204);
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}
+.button-adcionar:hover {
+    background-color: rgb(7, 108, 126);
 }
 
 .opcoes {
@@ -152,8 +179,9 @@ form {
     background-color: red;
     color: rgb(255, 255, 255);
 }
+
 .sair:hover {
-   background-color: rgb(179, 7, 7);
+    background-color: rgb(179, 7, 7);
 }
 
 .menu-container {
@@ -164,7 +192,7 @@ form {
     float: inline-end;
     margin-top: 35px;
     color: white;
-    margin-right: 30px;
+    margin-right: 10px;
 }
 
 .logo {
@@ -204,6 +232,17 @@ tr {
     text-align: center;
 }
 
+.deletItemtable {
+    width: 10px;
+    color: #000000;
+    border: 0;
+}
+
+.deletItemtable:hover {
+    width: 10px;
+    color: #fd0000;
+}
+
 select {
     width: 250px;
     height: 40px;
@@ -214,7 +253,7 @@ select {
     color: #777676;
 }
 
-.message { 
+.message {
     color: green;
     display: block;
     width: 100%;
@@ -222,17 +261,23 @@ select {
 
 .success {
     color: rgb(0, 185, 0);
-  }
-  
+}
+
 .error {
     color: red;
-  }
+}
+
+button {
+    background-color: white;
+}
 
 .deletButton {
-  width: 100%;
-  display: flex;
-  justify-content:flex-end;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
+
 .deletAll {
     display: inline-block;
     height: 40px;
@@ -240,6 +285,11 @@ select {
     margin-right: 205px;
     margin-top: -60px;
     background-color: red;
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+    border-radius: 23px;
+
 }
 
 .deletAll:hover {
@@ -251,41 +301,240 @@ select {
     display: none;
     justify-content: center;
 }
+
 .loader-tres-pontinhos {
-	
-	outline: 1px solid transparent;
-	font-size:0px;
-	padding:0px;
-	display:inline-block;
+
+    outline: 1px solid transparent;
+    font-size: 0px;
+    padding: 0px;
+    display: inline-block;
 }
+
 .loader-tres-pontinhos span {
-        background:#33dbdf;
-	border-radius:100%;
-	vertical-align:middle;
-	display:inline-block;
-	width:18px;
-	height:18px;
-	margin:2px 2px;
-	-webkit-animation:loader-tres-pontinhos 0.8s linear infinite alternate;
-	animation:loader-tres-pontinhos 0.8s linear infinite alternate;
+    background: #33dbdf;
+    border-radius: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 2px 2px;
+    -webkit-animation: loader-tres-pontinhos 0.8s linear infinite alternate;
+    animation: loader-tres-pontinhos 0.8s linear infinite alternate;
 }
-.loader-tres-pontinhos span:nth-child(1){
-	-webkit-animation-delay:-0.8;
-	animation-delay:-0.8s;
+
+.loader-tres-pontinhos span:nth-child(1) {
+    -webkit-animation-delay: -0.8;
+    animation-delay: -0.8s;
 }
+
 .loader-tres-pontinhos span:nth-child(2) {
-	-webkit-animation-delay:-0.53333s;
-	animation-delay:-0.53333s;
+    -webkit-animation-delay: -0.53333s;
+    animation-delay: -0.53333s;
 }
+
 .loader-tres-pontinhos span:nth-child(3) {
-	-webkit-animation-delay:-0.26666s;
-	animation-delay:-0.26666s;
+    -webkit-animation-delay: -0.26666s;
+    animation-delay: -0.26666s;
 }
-@keyframes loader-tres-pontinhos{
-    from {transform: scale(0, 0);}
-    to {transform: scale(1, 1);}
+
+@keyframes loader-tres-pontinhos {
+    from {
+        transform: scale(0, 0);
+    }
+
+    to {
+        transform: scale(1, 1);
+    }
 }
-@-webkit-keyframes loader-tres-pontinhos{
-    from {-webkit-transform: scale(0, 0);}
-    to {-webkit-transform: scale(1, 1);}
+
+@-webkit-keyframes loader-tres-pontinhos {
+    from {
+        -webkit-transform: scale(0, 0);
+    }
+
+    to {
+        -webkit-transform: scale(1, 1);
+    }
 }
+
+
+@media screen and (max-width: 900px) {
+
+  table {
+    width: 750px;
+  }
+  .deletItemtable {
+    margin-left: -50px;
+  }
+  .descricao {
+    width: 15%;
+  }
+}
+@media screen and (max-width: 780px) {
+    .montantes {
+    font-size: 30px;
+ }
+ .bloco {
+    width: 30%;
+    margin-left: 5px;
+}
+.icons{
+    height: 30px;
+}
+.bloco-title{
+    font-size: 20px;
+}
+
+.menu-container {
+    margin-top: 70px;
+    margin-right: -110px;
+    font-size: 18px;
+}
+.sair {
+    font-size: 20px;
+    height: 20px;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: -280px;
+    float: inline-end;
+    margin-right: 10px;
+    margin-top: 240px;
+    background-color: red;
+    color: rgb(255, 255, 255);
+  }
+  .descricao {
+    width: 20%;
+  }
+  .button-adcionar {
+    width: 20%;
+  }
+  select {
+    width: 20%;
+  }
+  .form-container {
+    margin-top: 30px;
+  }
+
+
+  table {
+    width: 650px;
+  }
+  .deletItemtable {
+    margin-left: -50px;
+  }
+  }
+
+
+@media screen and (max-width: 680px) {
+    .montantes {
+    font-size: 25px;
+ }
+ .bloco {
+    width: 30%;
+    margin-left: 2px;
+}
+.icons{
+    height: 30px;
+}
+.bloco-title{
+    font-size: 17px;
+    margin-left: -14px;
+}
+
+.menu-container {
+    margin-top: 70px;
+    margin-right: -110px;
+    font-size: 18px;
+}
+
+
+.descricao {
+    width: 15%;
+  }
+  
+
+  table {
+    width: 550px;
+  }
+  .deletItemtable {
+    margin-left: -50px;
+  }
+  }
+
+
+
+@media screen and (max-width: 580px) {
+    .montantes {
+    font-size: 20px;
+ }
+ .bloco {
+    width: 33%;
+    height: 100px;
+    margin-left: 2px;
+}
+.icons{
+    height: 25px;
+}
+.bloco-title{
+    font-size: 16px;
+    margin-left: -14px;
+}
+.container-header h1 {
+    font-size: 30px;
+}
+
+.menu-container {
+    margin-top: 70px;
+    margin-right: -110px;
+    font-size: 18px;
+}
+
+
+.descricao {
+    width: 15%;
+    font-size: 15px;
+    margin-left: 10px;
+  }
+  .button-adcionar {
+    width: 22%;
+    font-size: 15px;
+  }
+
+  input[type=number] {
+    width: 15%;
+    font-size: 15px;
+    margin-left: -5px;
+  }
+  select {
+    width: 17%;
+    font-size: 15px;
+
+  }
+  .form-container {
+    margin-top: 30px;
+  }
+  .sair {
+    margin-top: 225px;
+  }
+
+  table {
+  background-color: #fafafa;
+  width: 450px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 18px rgb(143, 142, 142);
+  margin-bottom: 100px;
+}
+  table th {
+    height: 0;
+  }
+
+  table tr td {
+    height: 10px;
+  }
+  .deletItemtable {
+    margin-left: -50px;
+  }
+  }

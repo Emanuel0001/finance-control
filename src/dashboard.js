@@ -4,8 +4,8 @@ import './dashboard.css'
 import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie'
 /*icons*/
-import { FcUp } from 'react-icons/fc';
-import { FcDown } from 'react-icons/fc';
+import { FiArrowUpCircle } from 'react-icons/fi';
+import { FiArrowDownCircle } from 'react-icons/fi';
 import { FcDebt } from 'react-icons/fc';
 import { AiFillBank } from 'react-icons/ai'
 import { FaTrashAlt } from 'react-icons/fa'
@@ -21,6 +21,11 @@ function Dashboard() {
     const [dados, setDados] = useState([]);
     const [totalEntradas, setTotalEntradas] = useState('');
     const [totalSaidas, setTotalSaidas] = useState('');
+   
+    const [saidasTotal, setSaidasTotal] = useState('');
+    const [entradasTotal, setEntradasTotal] = useState('');
+    /*pega valor do input table*/
+    const [valueInput, setValueInput] = useState("");
     const [message, setMessage] = useState('');
 
     const [isValidDescricao, setIsValidDescricao] = useState(false);
@@ -47,10 +52,8 @@ function Dashboard() {
                 history.push('./')
             }
         } validaToken()
-
-        buscaSaidas();
-        buscaEntradas();
-
+buscaEntradas();
+buscaSaidas();
     }, []);
 
     const validaDescricao = (event) => {
@@ -84,7 +87,6 @@ function Dashboard() {
         const list = resultado.resultado.rows;
         setDados(list);
         loader.style.display = "none"
-        console.log('sou suas saidas', resultado.saidas)
     }
 
     async function buscaEntradas() {
@@ -96,11 +98,19 @@ function Dashboard() {
             body: JSON.stringify({ email: email })
         })
         const resultado = await response.json();
-        setTotalEntradas(resultado.entradas)
+        if (resultado.entradas) {
+            var valor = resultado.entradas;
+            setTotalEntradas(valor);
+
+        }
+        if(resultado.nenhuma){
+            setTotalEntradas('');
+
+        }
+
     }
 
     async function buscaSaidas() {
-        console.log('saidas buscando')
         let response = await fetch('http://localhost:3001/buscarSaidas', {
             method: 'POST',
             headers: {
@@ -109,7 +119,16 @@ function Dashboard() {
             body: JSON.stringify({ email: email })
         })
         const resultado = await response.json();
-        setTotalSaidas(resultado.saidas)
+        setSaidasTotal(resultado.saidas)
+        if (resultado.saidas) {
+            var valor = resultado.saidas;
+
+            setTotalSaidas(valor);
+        }
+        if(resultado.nenhuma){
+            setTotalSaidas('');
+
+        }
     }
 
     const deletarCookie = () => {
@@ -120,7 +139,6 @@ function Dashboard() {
 
     async function submitForm(event) {
         event.preventDefault();
-        console.log('clicou')
         let response = await fetch('http://localhost:3001/insertTable', {
             method: 'POST',
             headers: {
@@ -132,17 +150,19 @@ function Dashboard() {
         if (result.enviado) {
             setIsValidInsert(true)
             setMessage('ADCIONADO COM SUCESSO')
+            setTimeout(function () {
+                buscaTodosRegistros()
+                buscaSaidas();
+                buscaEntradas();
+                resultadoTotalSoma()
+            }, 500);
+
         }
         if (result.error) {
             setIsValidInsert(false)
             setMessage(result.error)
         }
         console.log(result.enviado, result.error)
-        setTimeout(function () {
-            buscaTodosRegistros()
-            buscaSaidas();
-            buscaEntradas();
-        }, 500);
 
         setTimeout(function () {
             setMessage('');
@@ -165,27 +185,61 @@ function Dashboard() {
         if (result.error) {
             setIsValidInsert(false)
             setMessage(result.error)
+            setTotalSaidas('')
+            setTotalEntradas('')
         }
         if (result.clear) {
             setIsValidInsert(true)
             setMessage(result.clear)
+            setTotalSaidas('')
+            setTotalEntradas('')
+            buscaSaidas();
+            buscaEntradas();
+            resultadoTotalSoma()
             buscaTodosRegistros()
+            setTimeout(function () {
+                setMessage('');
+                setValor('');
+                setDescricao('');
+            }, 1000);
         }
-        
-        buscaSaidas();
-        buscaEntradas();
+
+
     }
 
-    const disabledButton = () => {
-        if (isValidDescricao && isValidValor) {
-            return false;
-        } else {
-            return true;
-        }
-    }
     const handleChange = (event) => {
         setTipo(event.target.value);
     }
+
+    
+    async function handleDelete (key,e) {
+        
+        let response = await fetch('http://localhost:3001/deletRowTable', {
+            method: 'POST',
+            headers: {
+                'content-type': "application/json"
+            },
+            body: JSON.stringify({ email: email, row: key })
+
+        })
+        const result = await response.json()
+        if(result.clear){
+            
+            
+                buscaTodosRegistros()
+                buscaSaidas();
+                buscaEntradas();
+                resultadoTotalSoma()
+    setMessage('DELETADO COM SUCESSO');
+        }
+    }
+  const resultadoTotalSoma = () => {
+          var valor = (entradasTotal - saidasTotal);
+        
+       
+        return valor.toLocaleString()
+    }
+
     return (
         <div className='container-dashboard'>
             <div className='logo'><AiFillBank size={36} /></div>
@@ -201,18 +255,18 @@ function Dashboard() {
             <div className='container-body'>
                 <div className='bloco'>
                     <h1 className='bloco-title'>Entradas</h1>
-                    <FcUp className='icons' />
-                    <h1 className='montantes'>R$ {totalEntradas || 0} </h1>
+                    <FiArrowUpCircle className='icons' color='blue' />
+                    <h1 className='montantes' id='montante-entrada' >R$ {totalEntradas.toLocaleString('pt-BR') || 0} </h1>
                 </div>
                 <div className='bloco'>
                     <h1 className='bloco-title'>Saídas</h1>
-                    <FcDown className='icons' />
-                    <h1 className='montantes'>R$ {totalSaidas || 0}</h1>
+                    <FiArrowDownCircle className='icons' size={23} color="red" />
+                    <h1 className='montantes' id='montante-saida'>R$ {totalSaidas.toLocaleString('pt-BR') || 0}</h1>
                 </div>
                 <div className='bloco'>
                     <h1 className='bloco-title'>Total</h1>
                     <FcDebt className='icons' />
-                    <h1 className='montantes'>R$ {totalEntradas - totalSaidas}</h1>
+                    <h1 className='montantes' id='montante-total'>R$ {(totalEntradas - totalSaidas).toLocaleString('pt-BR')}</h1>
                 </div>
             </div>
             <div className='form-container'>
@@ -232,7 +286,7 @@ function Dashboard() {
                         <option value="entrada">Entrada</option>
                         <option value="saida">Saida</option>
                     </select>
-                    <button className='button-adcionar' disabled={disabledButton()}>ADCIONAR</button>
+                    <button className='button-adcionar'>ADCIONAR</button>
                 </form>
             </div>
             <div className={`message ${isValidInsert ? 'sucess' : 'error'}`}>
@@ -240,9 +294,9 @@ function Dashboard() {
             </div>
             <div class="loader" id='loader'>
                 <div class="loader-tres-pontinhos">
-                    <span>oi</span>
-                    <span>oi</span>
-                    <span>oi</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
             <div className='table-container'>
@@ -253,14 +307,18 @@ function Dashboard() {
                         <th>tipo</th>
                     </tr>
                     {dados.map((val, key) => {
-                        console.log(val.valor,val.tipo,val.descricao,key)
                         return (
                             <tr key={key}>
                                 <td>{val.descricao}</td>
                                 <td>{val.valor}</td>
                                 <td>{val.tipo}</td>
-                                <td> <FcDown size={30} /></td>
-                                <td><FaTrashAlt size={23} color="red" /></td>
+                                <td>
+                                    <button 
+                                    className='deletItemtable'
+                                    onClick={e => handleDelete(key,e)}
+                                    >
+                                        <FaTrashAlt size={23} /></button>
+                                </td>
                             </tr>
                         )
                     })}

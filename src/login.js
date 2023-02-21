@@ -48,7 +48,9 @@ function App() {
   
   async function onSubmitForm(event) {
     event.preventDefault();
-    console.log("clicou")
+    var loader = document.getElementById('loader');
+    loader.style.display = "flex"
+
     let response = await fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -56,13 +58,15 @@ function App() {
     })
     const result = await response.json()
     setMessageError(result.error)
-
+   console.log(result.message)
     const token = result.token
     const NomeUser = result.nome
     setCookie("x-access-token", token, { path: "/", secure: "true" })
     setCookie("userName", NomeUser, { path: "/", secure: "true" })
     setCookie("email", email, { path: "/", secure: "true" })
-    
+    if(result.error){
+    loader.style.display = "none"
+    }
     if (result.message) {
       const resultadoCliente = await fetch('http://localhost:3001/client', {
         method: 'GET',
@@ -121,8 +125,14 @@ const disabledButton = () => {
               placeholder='password'
             ></input>
             <div id='resultado'>{messageError}</div>
-
-           <button disabled={disabledButton()}>ENTRAR</button>
+            <div class="loader" id='loader'>
+                <div class="loader-tres-pontinhos">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+           <button class='button-entrar' disabled={disabledButton()}>ENTRAR</button>
             <p>Não tem uma conta? <Link to='/cadastro' className='link-login'>Create Account</Link></p>
           </form>
         </div>
